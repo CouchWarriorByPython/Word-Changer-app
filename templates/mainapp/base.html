@@ -1,0 +1,29 @@
+{% load url_redirect %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "mainapp/css/style.css" %}" rel="stylesheet">
+</head>
+<body>
+<div id="header">
+    <span class="logo">Word Changer</span>
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+{% block buttons %}
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'profile' %}">{{ request.user.username }}</a> | <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+        <a href="{% url 'register' %}">Регистрация</a>
+        <a href="{% url 'login' %}">
+            <button type="submit">Войти</button>
+        </a>
+    {% endif %}
+{% endblock %}
+<script type="text/javascript" src={% static "mainapp/js/main.js" %}></script>
+</body>
+</html>

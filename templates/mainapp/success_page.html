@@ -1,0 +1,17 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}">
+</head>
+<body>
+{% block content %}
+    <p>Благодарю за то, что выбрали мой сервис &#10084;</p>
+    <button type="submit" id="btn-down">Скачать файл</button>
+    <button type="submit" id="btn-home">Вернуться назад</button>
+{% endblock %}
+</body>
+</html>
