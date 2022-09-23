@@ -1,0 +1,13 @@
+{% extends "account/base.html" %}
+<title>{% block title %}{{ title }}{% endblock %}</title>
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {% for f in form %}
+            <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+            <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
+        <button type="submit">Регистрация</button>
+    </form>
+    <a href="{% url 'login'%}"><button type="submit" style="margin-top: 5px">Уже есть аккаунт?</button></a>
+{% endblock %}

@@ -3,21 +3,18 @@ import re
 from docx import Document
 from datetime import datetime, timedelta
 
+from .models import Document
+
 
 def check_work_shift():
     """Функция для определения текущей смены работника"""
-    print('Укажите смену, дневная/ночна(д/н):')
-    enter = input('> ')
-    try:
-        if enter.lower() == 'дневная' or enter.lower() == 'д':
-            data = datetime.today()
-            return data.strftime('%d.%m.%Y')
-        else:
-            data = datetime.today() + timedelta(days=1)
-            return data.strftime('%d.%m.%Y')
-
-    except Exception as ex:
-        print('Некорректный ввод', ex)
+    query = Document.objects.last().work_shift
+    if query == 'д':
+        data = datetime.today()
+        return data.strftime('%d.%m.%Y')
+    else:
+        data = datetime.today() + timedelta(days=1)
+        return data.strftime('%d.%m.%Y')
 
 
 def func(table):

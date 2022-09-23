@@ -1,5 +1,5 @@
 {% extends "account/base.html" %}
-{% block title %}Log-in{% endblock %}
+<title>{% block title %}{{ title }}{% endblock %}</title>
 {% block content %}
     <h1>Log-in</h1>
     {% if form.errors %}
@@ -11,11 +11,12 @@
         <p>Please, use the following form to log-in:</p>
     {% endif %}
     <div class="login-form">
-        <form action="{% url 'login' %}" method="post">
+        <form method="post">
             {{ form.as_p }}
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}"/>
-            <p><input type="submit" value="Log-in"></p>
+            <p><input type="submit" value="Войти"></p>
         </form>
     </div>
+    <a href="{% url 'register' %}"><button type="submit">Нет аккаунта?</button></a>
 {% endblock %}

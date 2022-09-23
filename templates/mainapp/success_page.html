@@ -10,8 +10,8 @@
 <body>
 {% block content %}
     <p>Благодарю за то, что выбрали мой сервис &#10084;</p>
-    <button type="submit" id="btn-down">Скачать файл</button>
-    <button type="submit" id="btn-home">Вернуться назад</button>
+    <a href="{% url 'download' %}"><button type="submit" >Скачать файл</button></a>
+    <a href="{% url 'home' %}"><button type="submit" >Вернуться назад</button></a>
 {% endblock %}
 </body>
 </html>
