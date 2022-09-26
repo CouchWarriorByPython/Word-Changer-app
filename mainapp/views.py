@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import FormView
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponseServerError, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from mainapp.forms import DocumentForm
-from django.contrib.auth.models import User
+from .tools import check
 from account.models import CustomUser
+from .models import DocxModel
 
 
 class DocumentView(LoginRequiredMixin, FormView):
@@ -30,5 +31,10 @@ def success(request):
 
 
 def download(request):
-    return FileResponse(open('media/documents/2022/09/20/01999980_Договір__4109-E922-P000.pdf', 'rb'),
-                        as_attachment=True)
+    resp = check(request.user.username)
+    answer = {'response': resp}
+    if resp is None:
+        query = DocxModel.objects.last()
+        return FileResponse(open(query.document.path, 'rb'), as_attachment=True)
+    else:
+        return render(request, 'mainapp/errors/list_out.html', answer)

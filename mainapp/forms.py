@@ -1,8 +1,8 @@
 from django import forms
-from .models import Document
+from .models import DocxModel
 
 
 class DocumentForm(forms.ModelForm):
     class Meta:
-        model = Document
+        model = DocxModel
         fields = ('description', 'work_shift', 'number_check', 'document')
