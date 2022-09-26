@@ -1,1 +1,1 @@
-web: gunicorn Word_changer.wsgi --log-file
+web: gunicorn Word_changer.wsgi
