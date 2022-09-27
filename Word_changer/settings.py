@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+import dj_database_url
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -85,16 +87,19 @@ WSGI_APPLICATION = 'Word_changer.wsgi.application'
 #     }
 # }
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'ec2-35-168-122-84.compute-1.amazonaws.com',
-        'NAME': 'd1kvevs613u5m',
-        'USER': 'rgxawouhrtbfjn',
-        'PASSWORD': '8914fbd2f083bfb91e1ccbfb3e24a185df8e94de260b86b3fb24a52915588e20',
-        'PORT': '5432'
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+        'NAME': os.environ.get('POSTGRES_DB', 'db_name'),
+        'USER': os.environ.get('POSTGRES_USER', 'username'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

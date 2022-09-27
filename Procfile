@@ -1,1 +1,0 @@
-web: gunicorn Word_changer.wsgi
